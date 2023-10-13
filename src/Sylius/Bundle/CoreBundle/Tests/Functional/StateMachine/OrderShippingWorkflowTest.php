@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-namespace Sylius\Bundle\CoreBundle\Tests\Functional\StateMachine\WorkflowAdapter;
+namespace Sylius\Bundle\CoreBundle\Tests\Functional\StateMachine;
 
 use Sylius\Bundle\CoreBundle\StateMachine\StateMachineInterface;
 use Sylius\Component\Core\Model\Order;
@@ -35,9 +35,7 @@ final class OrderShippingWorkflowTest extends KernelTestCase
         $this->assertSame($expectedStatus, $subject->getShippingState());
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function it_applies_ship_transition_if_order_is_partially_shipped(): void
     {
         $stateMachine = $this->getStateMachine();

@@ -11,26 +11,25 @@
 
 declare(strict_types=1);
 
-namespace Sylius\Bundle\CoreBundle\EventListener\Workflow\OrderShipping;
+namespace Sylius\Bundle\CoreBundle\EventListener\Workflow\OrderCheckout;
 
 use Sylius\Component\Core\Model\OrderInterface;
 use Sylius\Component\Order\StateResolver\StateResolverInterface;
 use Symfony\Component\Workflow\Event\CompletedEvent;
 use Webmozart\Assert\Assert;
 
-final class AfterOrderShippedListener
+final class ResolveOrderPaymentStateListener
 {
-    public function __construct(private StateResolverInterface $orderStateResolver)
+    public function __construct(protected StateResolverInterface $orderPaymentStateResolver)
     {
     }
 
-    public function onOrderShippingCompleted(CompletedEvent $event): void
+    public function __invoke(CompletedEvent $event): void
     {
-        Assert::isInstanceOf($event->getSubject(), OrderInterface::class);
-
         /** @var OrderInterface $order */
         $order = $event->getSubject();
+        Assert::isInstanceOf($order, OrderInterface::class);
 
-        $this->orderStateResolver->resolve($order);
+        $this->orderPaymentStateResolver->resolve($order);
     }
 }
