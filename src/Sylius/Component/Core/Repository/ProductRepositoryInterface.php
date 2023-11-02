@@ -26,6 +26,8 @@ use Sylius\Component\Product\Repository\ProductRepositoryInterface as BaseProduc
  */
 interface ProductRepositoryInterface extends BaseProductRepositoryInterface
 {
+    public function findAggregate($id): ?ProductInterface;
+
     /** @param mixed|null $taxonId */
     public function createListQueryBuilder(string $locale, $taxonId = null): QueryBuilder;
 
